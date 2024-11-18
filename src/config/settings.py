@@ -38,7 +38,12 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'apps.cuentas',
+    'apps.motivos',
+    'apps.transacciones',
+    'apps.usuarios',
+]
 
 THIRD_APPS = []
 
@@ -46,8 +51,8 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_APPS
 
 
 # Modelo para el manejo de Usuarios
-# AUTH_USER_MODEL = ''
-#TODO usuarios.Usuario
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
 
 # Redirección al iniciar sesión
 LOGIN_REDIRECT_URL = reverse_lazy('#')
