@@ -20,10 +20,10 @@
                         {% else %}
                             <img src="{% static 'assets/img/user.png' %}" class="user-image rounded-circle shadow" alt="User Image">
                         {% endif %}
-                        <span class="d-none d-md-inline">{ user.username }</span>
+                        <span class="d-none d-md-inline">{{ user.username }}</span>
                     {% else %}
                         <img src="{% static 'assets/img/user.png' %}" class="user-image rounded-circle shadow" alt="User Image">
-                            <a href="{% url 'inicio' %}">Iniciar sesión</a>
+                            <a href="{% url 'login' %}">Iniciar sesión</a>
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
@@ -37,7 +37,7 @@
                             {% if user.is_authenticated %}
                                 {{ user.get_full_name }}
                             {% else %}
-                                <p><a href="{% url 'inicio' %}">Iniciar sesión</a></p>
+                                <p><a href="{% url 'login' %}">Iniciar sesión</a></p>
                             {% endif %}
 
                             <small>{ ROL }</small>
@@ -47,13 +47,13 @@
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-4 text-center">
-                                    <a href="{% url 'inicio' %}">Admin Django</a>
+                                    <a href="{% url 'admin:index' %}">Admin Django</a>
                                 </div>
                             </div>
                         </li>
                     {% endif %}
 
-                    <form action="{% url 'inicio' %}" method="POST">{% csrf_token %}
+                    <form action="{% url 'logout' %}" method="POST">{% csrf_token %}
 
                         <li class="user-footer"> 
                             <button href="#" class="btn btn-default btn-flat">Salir</button> 

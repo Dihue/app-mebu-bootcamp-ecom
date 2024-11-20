@@ -55,12 +55,12 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
 
 # Redirección al iniciar sesión
-LOGIN_REDIRECT_URL = reverse_lazy('#')
-#TODO 'inicio'
+LOGIN_REDIRECT_URL = reverse_lazy('inicio')
+
 
 # Redirección al cerrar sesión
-LOGIN_URL = reverse_lazy('#')
-#TODO 'login'
+LOGIN_URL = reverse_lazy('login')
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
