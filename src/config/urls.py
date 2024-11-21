@@ -15,7 +15,7 @@ urlpatterns = [
     path('logout/', views_django.logout_then_login, name='logout'),
 
     #TODO: habilitar luego de los MVT de cada app
-    # path('cuentas/', include('apps.cuentas.urls')),
+    path('cuentas/', include('apps.cuentas.urls')),
     # path('motivos/', include('apps.motivos.urls')),
     # path('transacciones/', include('apps.transacciones.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
