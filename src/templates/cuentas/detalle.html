@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Detalles de la Cuenta
+            </div>
+            <div class="card-body">
+                <p><strong>Saldo:</strong> {{ cuenta.saldo }}</p>
+                {% if cuenta.estado %}
+                    <p><strong>Estado:</strong> Activa</p>
+                {% else %}
+                <p><strong>Estado:</strong> Inactiva</p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'usuarios:detalle' user.id %}" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

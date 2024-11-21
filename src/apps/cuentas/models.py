@@ -15,3 +15,5 @@ class Cuenta(models.Model):
 	estado = models.BooleanField(choices=ESTADO_CHOICES, default=True)
 	usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 
+	def __str__(self):
+		return f'{self.id} - {self.usuario}'

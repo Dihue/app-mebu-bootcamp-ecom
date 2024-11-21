@@ -16,7 +16,11 @@
                 <p><strong>Foto de perfil:</strong> {{ usuario.foto_perfil }}</p>
             </div>
             <div class="card-footer">
-                <a href="{% url 'inicio' %}" class="btn btn-primary">Volver</a>
+                
+                    
+                    <a href="{% url 'cuentas:detalle' %}" class="btn btn-success" role="button">Cuenta</a>
+                    <a href="#" class="btn btn-danger" role="button">Editar</a>
+                    <a href="{% url 'inicio' %}" class="btn btn-primary" role="button">Volver</a>
             </div>
         </div>
     </div>
