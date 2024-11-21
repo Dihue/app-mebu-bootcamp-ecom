@@ -12,37 +12,39 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                
-                <li class="nav-item">
-                    <a href="{% url 'usuarios:nuevo' %}" class="nav-link">
-                        <i class="nav-icon bi bi-palette"></i>
-                        <p>Registrarse</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
-                        <p>
-                            Usuarios
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{% url 'inicio' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Registro</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'inicio' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Lista</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'usuarios:nuevo' %}" class="nav-link">
+                            <i class="nav-icon bi bi-palette"></i>
+                            <p>Registrarse</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-box-seam-fill"></i>
+                            <p>
+                                Usuarios
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'usuarios:lista' %}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Lista</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'usuarios:detalle' user.id %}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Detalles</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-ui-checks-grid"></i>

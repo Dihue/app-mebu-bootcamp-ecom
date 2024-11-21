@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Detalles del Usuario
+            </div>
+            <div class="card-body">
+                <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+                <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
+                <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>
+                <p><strong>Email:</strong> {{ usuario.email }}</p>
+                <p><strong>DNI:</strong> {{ usuario.dni }}</p>
+                <p><strong>Foto de perfil:</strong> {{ usuario.foto_perfil }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'inicio' %}" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
