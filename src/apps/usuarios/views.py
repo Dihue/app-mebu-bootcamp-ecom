@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 
 from .forms import FormUsuario
 from .models import Usuario
@@ -42,3 +43,21 @@ class Lista(ListView):
         ctx = super(Lista, self).get_context_data(**kwargs)
         ctx["titulo"] = "Lista de Usuarios"
         return ctx
+
+
+class UsuarioUpdate(LoginRequiredMixin, UpdateView):
+    model = Usuario
+    fields = ['first_name', 'last_name', 'dni', 'email', 'foto_perfil']
+    template_name = 'usuarios/editar.html'
+    context_object_name = 'usuario'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UsuarioUpdate, self).get_context_data(**kwargs)
+        ctx["titulo"] = "Editar datos"
+        return ctx
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+    
+    def get_success_url(self):
+        return reverse('usuarios:detalle', kwargs={'pk': self.request.user.pk})
