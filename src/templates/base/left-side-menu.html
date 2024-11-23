@@ -12,6 +12,7 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                
                 {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{% url 'usuarios:nuevo' %}" class="nav-link">
@@ -19,47 +20,58 @@
                             <p>Registrarse</p>
                         </a>
                     </li>
-                {% endif %}
-                {% if user.is_authenticated %}
+                {% else %}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-box-seam-fill"></i>
                             <p>
-                                Usuarios
+                                Usuario
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{% url 'usuarios:lista' %}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Lista</p>
-                                </a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a href="{% url 'usuarios:detalle' user.id %}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Detalles</p>
                                 </a>
                             </li>
+                            {% if user.is_superuser %}
+                                <li class="nav-item">
+                                    <a href="{% url 'usuarios:lista' %}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Lista</p>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </li>
-                {% endif %}
+                
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-ui-checks-grid"></i>
                         <p>
-                            Cuentas
+                            Cuenta
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        {% if not request.user.cuenta %}
+                            <li class="nav-item">
+                                <a href="{% url 'cuentas:nuevo' %}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Nuevo</p>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
-                            <a href="{% url 'cuentas:nuevo' %}" class="nav-link">
+                            <a href="{% url 'cuentas:ingresar_dinero' %}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Nuevo</p>
+                                <p>Ingresar dinero</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{% url 'cuentas:detalle' %}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
@@ -73,7 +85,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-download"></i>
                         <p>
-                            Vacunas
+                            Transerencia
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -81,7 +93,7 @@
                         <li class="nav-item">
                             <a href="{% url 'inicio' %}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Nuevo</p>
+                                <p>Nueva</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -92,8 +104,9 @@
                         </li>
                     </ul>
                 </li>
+                {% endif %}
 
-                <li class="nav-header">DOCUMENTATIONS</li>
+                <li class="nav-header">DOCUMENTACION</li>
                 <li class="nav-item">
                     <a href="./docs/faq.html" class="nav-link">
                         <i class="nav-icon bi bi-question-circle-fill"></i>

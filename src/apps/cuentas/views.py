@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy, reverse
 
-from .forms import FormCuenta
+from .forms import FormCuenta, IngresoDineroForm
 from .models import Cuenta
 
 class Nuevo(LoginRequiredMixin, CreateView):
@@ -39,3 +39,22 @@ class CuentaDetalles(DetailView):
         ctx["titulo"] = "Detalles de la Cuenta"
         ctx["subtitulo"] = "Detalles"
         return ctx
+
+
+class IngresoDineroView(LoginRequiredMixin, UpdateView):
+    model = Cuenta
+    form_class = IngresoDineroForm
+    template_name = 'cuentas/ingreso_dinero.html'
+    
+    def form_valid(self, form):
+        cuenta = form.save(commit=False)
+        cantidad = form.cleaned_data['cantidad']
+        cuenta.saldo += cantidad
+        cuenta.save()
+        return super().form_valid(form)
+
+    def get_object(self, queryset=None):
+        return self.request.user.cuenta
+    
+    def get_success_url(self):
+        return reverse('cuentas:detalle')
