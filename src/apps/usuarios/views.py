@@ -60,4 +60,8 @@ class UsuarioUpdate(LoginRequiredMixin, UpdateView):
         return self.request.user
     
     def get_success_url(self):
-        return reverse('usuarios:detalle', kwargs={'pk': self.request.user.pk})
+        return reverse('usuarios:detalle', kwargs={'id': self.request.user.pk})
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
