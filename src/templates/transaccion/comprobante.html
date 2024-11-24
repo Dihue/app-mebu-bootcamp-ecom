@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Comprobante de Transacción</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Detalle de la Transferencia</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>ID de la Transacción:</strong> {{ transaccion.id }}</p>
+        <p><strong>Fecha:</strong> {{ transaccion.fecha }}</p>
+        <p><strong>Emisor:</strong> {{ transaccion.emisor.usuario.username }}</p>
+        <p><strong>Receptor:</strong> {{ transaccion.receptor.usuario.username }}</p>
+        <p><strong>Monto:</strong> $ {{ transaccion.monto }}</p>
+        <p><strong>Motivo:</strong> {{ transaccion.motivo.nombre }}</p>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+    </div>
+</div>
+
+{% endblock %}

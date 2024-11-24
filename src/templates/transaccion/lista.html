@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Lista de Transacciones</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Emisor</th>
+            <th>Receptor</th>
+            <th>Monto</th>
+            <th>Motivo</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaccion in transacciones %}
+        <tr>
+            <td>{{ transaccion.id }}</td>
+            <td>{{ transaccion.emisor.usuario.username }}</td>
+            <td>{{ transaccion.receptor.usuario.username }}</td>
+            <td>$ {{ transaccion.monto }}</td>
+            <td>{{ transaccion.motivo.descripcion }}</td>
+            <td>{{ transaccion.fecha }}</td>
+            <td>
+                <a href="{% url 'transaccion:comprobante' transaccion.id %}" class="btn btn-info">
+                    Ver Comprobante
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No hay transacciones disponibles.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
