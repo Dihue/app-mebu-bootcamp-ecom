@@ -22,6 +22,14 @@
                     <a href="{% url 'usuarios:editar' %}" class="btn btn-danger" role="button">Editar</a>
                     <a href="{% url 'inicio' %}" class="btn btn-primary" role="button">Volver</a>
                     <a href="{% url 'transaccion:lista' %}" class="btn btn-primary" role="button">Transacciones</a>
+                    <a href="{% url 'cuentas:agregar_cuenta_frecuente' %}" class="nav-link">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>Agregar Cuenta Frecuente</p>
+                    </a>
+                    <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="nav-link">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>Ver Cuentas Frecuentes</p>
+                    </a>
             </div>
         </div>
     </div>

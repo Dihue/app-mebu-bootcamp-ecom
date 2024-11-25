@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Cuenta
+from .models import Cuenta, CuentaFrecuente
 
 
 class FormCuenta(forms.ModelForm):
@@ -18,3 +18,15 @@ class IngresoDineroForm(forms.ModelForm):
     class Meta:
         model = Cuenta
         fields = ['cantidad']
+
+
+class CuentaFrecuenteForm(forms.ModelForm):
+    class Meta:
+        model = CuentaFrecuente
+        fields = ['cuenta', 'alias']
+
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['cuenta'].queryset = Cuenta.objects.exclude(usuario=user)

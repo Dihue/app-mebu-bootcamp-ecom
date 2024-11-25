@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Cuentas Frecuentes</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Alias</th>
+            <th>Usuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cuenta_frecuente in cuentas_frecuentes %}
+        <tr>
+            <td>{{ cuenta_frecuente.alias }}</td>
+            <td>{{ cuenta_frecuente.cuenta.usuario.username }}</td>
+            <td>
+                
+                <a href="{% url 'nueva_transaccion' %}?receptor={{ cuenta_frecuente.cuenta.id }}" class="btn btn-primary">
+                    Transferir
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No tienes cuentas frecuentes aún.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

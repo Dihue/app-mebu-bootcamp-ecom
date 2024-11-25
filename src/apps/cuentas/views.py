@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy, reverse
 
-from .forms import FormCuenta, IngresoDineroForm
-from .models import Cuenta
+from .forms import FormCuenta, IngresoDineroForm, CuentaFrecuenteForm
+from .models import Cuenta, CuentaFrecuente
 
 class Nuevo(LoginRequiredMixin, CreateView):
     template_name = 'cuentas/nuevo.html'
@@ -58,3 +59,28 @@ class IngresoDineroView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('cuentas:detalle')
+    
+
+class AgregarCuentaFrecuente(LoginRequiredMixin, CreateView):
+    model = CuentaFrecuente
+    form_class = CuentaFrecuenteForm
+    template_name = 'cuentas/agregar_cuenta_frecuente.html'
+    success_url = reverse_lazy('lista_cuentas_frecuentes')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+
+class ListaCuentasFrecuentes(LoginRequiredMixin, ListView):
+    model = CuentaFrecuente
+    template_name = 'cuentas/lista_cuenta_frecuente.html'
+    context_object_name = 'cuentas_frecuentes'
+
+    def get_queryset(self):
+        return CuentaFrecuente.objects.filter(usuario=self.request.user)
