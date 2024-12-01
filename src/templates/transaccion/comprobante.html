@@ -13,7 +13,7 @@
         <p><strong>Emisor:</strong> {{ transaccion.emisor.usuario.username }}</p>
         <p><strong>Receptor:</strong> {{ transaccion.receptor.usuario.username }}</p>
         <p><strong>Monto:</strong> $ {{ transaccion.monto }}</p>
-        <p><strong>Motivo:</strong> {{ transaccion.motivo.nombre }}</p>
+        <p><strong>Motivo:</strong> {{ transaccion.motivo.descripcion }}</p>
     </div>
     <div class="card-footer">
         <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>

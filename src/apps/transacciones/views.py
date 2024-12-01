@@ -4,14 +4,15 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormView
 
 from .models import Transaccion
 from .forms import FormTransaccion
 
 from apps.cuentas.models import Cuenta
 
-class NuevaTransaccion(LoginRequiredMixin, CreateView):
+class NuevaTransaccion(LoginRequiredMixin, FormView):
     template_name = 'transaccion/nueva.html'
     model = Transaccion
     form_class = FormTransaccion
