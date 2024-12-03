@@ -10,7 +10,7 @@ from django.views.generic.edit import FormView
 from .models import Transaccion
 from .forms import FormTransaccion
 
-from apps.cuentas.models import Cuenta
+from apps.cuentas.models import Cuenta, CuentaFrecuente
 
 class NuevaTransaccion(LoginRequiredMixin, FormView):
     template_name = 'transaccion/nueva.html'
@@ -55,9 +55,11 @@ class NuevaTransaccion(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ctx = super(NuevaTransaccion, self).get_context_data(**kwargs)
-        ctx["titulo"] = "Nueva transacción"
+        ctx = super().get_context_data(**kwargs)
+        ctx["titulo"] = "Nueva Transacción"
         ctx["subtitulo"] = "Transacción"
+        # Pasar las cuentas frecuentes al contexto
+        ctx["cuentas_frecuentes"] = CuentaFrecuente.objects.filter(usuario=self.request.user)
         return ctx
 
 

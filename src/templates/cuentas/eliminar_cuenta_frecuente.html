@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h2>Eliminar Cuenta Frecuente</h2>
+<p>¿Estás seguro de que quieres eliminar esta cuenta frecuente?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock content %}

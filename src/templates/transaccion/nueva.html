@@ -18,22 +18,42 @@
                 </div>
 
                 <form method="post">{% csrf_token %}
+                    
                     <div class="card-body">
                         {% include 'includes/forms_errors.html' %}
 
                         {% include 'includes/forms.html' %}
-                    </div>
 
-                    <div class="card-footer d-flex ">
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Guardar</button>
-                        <a href="{% url 'inicio' %}" class="btn btn-secundary"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+                        <label for="cuentas_frecuentes">Cuentas frecuentes</label>
+
+                        <select id="cuentas_frecuentes" onchange="document.getElementById('id_receptor_username').value = this.value;">
+                            <option value="">--- Seleccionar ---</option>
+                            {% for cuenta in cuentas_frecuentes %}
+                                <option value="{{ cuenta.cuenta.usuario.username }}">{{ cuenta.alias|default:cuenta.cuenta.usuario.username }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
+                
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                
+                    <div class="card-footer d-flex ">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-success">Transferir</button>
+                    
+                                <a href="{% url 'inicio' %}" class="btn btn-danger" role="button">Salir</a>
+                                <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-primary" role="button">Cuentas frecuente</a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </form>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
+
             </div>
         </div>
     </div>

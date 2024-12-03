@@ -1,9 +1,8 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<h1>Cuentas Frecuentes</h1>
-
-<table class="table">
+<h2>Mis Cuentas Frecuentes</h2>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Alias</th>
@@ -12,15 +11,12 @@
         </tr>
     </thead>
     <tbody>
-        {% for cuenta_frecuente in cuentas_frecuentes %}
+        {% for cuenta in cuentas_frecuentes %}
         <tr>
-            <td>{{ cuenta_frecuente.alias }}</td>
-            <td>{{ cuenta_frecuente.cuenta.usuario.username }}</td>
+            <td>{{ cuenta.alias }}</td>
+            <td>{{ cuenta.cuenta.usuario.username }}</td>
             <td>
-                
-                <a href="{% url 'nueva_transaccion' %}?receptor={{ cuenta_frecuente.cuenta.id }}" class="btn btn-primary">
-                    Transferir
-                </a>
+                <a href="{% url 'cuentas:eliminar_cuenta_frecuente' cuenta.pk %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% empty %}
@@ -30,4 +26,5 @@
         {% endfor %}
     </tbody>
 </table>
+<a href="{% url 'cuentas:agregar_cuenta_frecuente' %}" class="btn btn-primary">Agregar nueva cuenta</a>
 {% endblock %}

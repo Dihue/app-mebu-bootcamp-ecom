@@ -7,7 +7,14 @@
 
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+
+        <!-- <div class="form-group">
             {{ form.cuenta.label_tag }}<br>
             {{ form.cuenta }}
         </div>
@@ -17,7 +24,7 @@
             {{ form.alias }}
         </div>
         
-        <button type="submit" class="btn btn-primary">Guardar como frecuente</button>
+        <button type="submit" class="btn btn-primary">Guardar como frecuente</button> -->
         <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

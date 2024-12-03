@@ -11,4 +11,5 @@ urlpatterns = [
     path('cuenta/', views.IngresoDineroView.as_view(), name='ingresar_dinero'),
     path('cuentas_frecuentes/agregar/', views.AgregarCuentaFrecuente.as_view(), name='agregar_cuenta_frecuente'),
     path('cuentas_frecuentes/', views.ListaCuentasFrecuentes.as_view(), name='lista_cuentas_frecuentes'),
+    path('cuentas-frecuentes/eliminar/<int:pk>/', views.EliminarCuentaFrecuente.as_view(), name='eliminar_cuenta_frecuente'),
 ]

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from .forms import FormCuenta, IngresoDineroForm, CuentaFrecuenteForm
@@ -65,7 +65,7 @@ class AgregarCuentaFrecuente(LoginRequiredMixin, CreateView):
     model = CuentaFrecuente
     form_class = CuentaFrecuenteForm
     template_name = 'cuentas/agregar_cuenta_frecuente.html'
-    success_url = reverse_lazy('lista_cuentas_frecuentes')
+    success_url = reverse_lazy('cuentas:lista_cuentas_frecuentes')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -73,6 +73,11 @@ class AgregarCuentaFrecuente(LoginRequiredMixin, CreateView):
         return kwargs
 
     def form_valid(self, form):
+        # Verificar duplicados
+        if CuentaFrecuente.objects.filter(usuario=self.request.user, cuenta=form.cleaned_data['cuenta']).exists():
+            form.add_error('cuenta', 'Esta cuenta ya está en tu lista de frecuentes.')
+            return self.form_invalid(form)
+
         form.instance.usuario = self.request.user
         return super().form_valid(form)
 
@@ -83,4 +88,14 @@ class ListaCuentasFrecuentes(LoginRequiredMixin, ListView):
     context_object_name = 'cuentas_frecuentes'
 
     def get_queryset(self):
+        return CuentaFrecuente.objects.filter(usuario=self.request.user)
+
+
+class EliminarCuentaFrecuente(LoginRequiredMixin, DeleteView):
+    model = CuentaFrecuente
+    template_name = 'cuentas/eliminar_cuenta_frecuente.html'
+    success_url = reverse_lazy('cuentas:lista_cuentas_frecuentes')
+
+    def get_queryset(self):
+        # Asegurarse de que el usuario solo pueda eliminar sus propias cuentas frecuentes
         return CuentaFrecuente.objects.filter(usuario=self.request.user)
