@@ -21,9 +21,9 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 
 
 ## **Funcionalidades Desarrolladas**
-- Usuarios No Registrados (si)
-- Registro de cuenta. (si)
-- Iniciar sesión en el sistema. (si)
+- [x] Usuarios No Registrados.
+- [x] Registro de cuenta.
+- [x] Iniciar sesión en el sistema.
 
 ## **Usuarios Registrados**
 - Visualización del saldo de la cuenta. (si)
