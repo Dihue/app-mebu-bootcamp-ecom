@@ -21,22 +21,22 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 
 
 ## **Funcionalidades Desarrolladas**
-- [x] Usuarios No Registrados.
-- [x] Registro de cuenta.
-- [x] Iniciar sesión en el sistema.
+- :heavy_check_mark: Usuarios No Registrados.
+- :heavy_check_mark: Registro de cuenta.
+- :heavy_check_mark: Iniciar sesión en el sistema.
 
 ## **Usuarios Registrados**
-- Visualización del saldo de la cuenta. (si)
-- Cambio de foto de perfil y edición de datos personales. (casi)
-- Ingreso de dinero a la cuenta. (si)
-- Transferencias de dinero a otros usuarios registrados, con selección de motivo desde una lista predefinida. (si)
-- Visualización de comprobantes de transferencias desde la interfaz web. (si)
-- Marcar usuarios como favoritos para agilizar futuras transferencias. (casi)
-- Consulta del historial de movimientos, incluyendo ingresos y transferencias realizadas y recibidas. (casi)
+- :heavy_check_mark: Visualización del saldo de la cuenta.
+- :warning: Cambio de foto de perfil y edición de datos personales.
+- :heavy_check_mark: Ingreso de dinero a la cuenta.
+- :heavy_check_mark: Transferencias de dinero a otros usuarios registrados, con selección de motivo desde una lista predefinida.
+- :heavy_check_mark: Visualización de comprobantes de transferencias desde la interfaz web.
+- :heavy_check_mark: Marcar usuarios como favoritos para agilizar futuras transferencias.
+- :warning: Consulta del historial de movimientos, incluyendo ingresos y transferencias realizadas y recibidas.
 
 ## **Usuarios Administradores**
-- Visualización de la lista completa de usuarios. (no)
-- Activación o desactivación de cuentas de usuarios. (no)
-- Edición de información de usuarios. (no)
-- Revisión de detalles de cuentas y movimientos de cada usuario. (no)
-- Gestión de motivos de transferencia (CRUD). (no)
+- :x: Visualización de la lista completa de usuarios.
+- :x: Activación o desactivación de cuentas de usuarios.
+- :x: Edición de información de usuarios.
+- :x: Revisión de detalles de cuentas y movimientos de cada usuario.
+- :x: Gestión de motivos de transferencia (CRUD).
