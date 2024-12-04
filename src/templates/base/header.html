@@ -23,7 +23,6 @@
                         <span class="d-none d-md-inline">{{ user.username }}</span>
                     {% else %}
                         <img src="{% static 'assets/img/user.png' %}" class="user-image rounded-circle shadow" alt="User Image">
-                            <a href="{% url 'login' %}">Iniciar sesión</a>
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">

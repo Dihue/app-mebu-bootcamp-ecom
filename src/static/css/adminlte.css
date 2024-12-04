@@ -15376,4 +15376,17 @@ html.maximized-card {
   width: 32px;
 }
 
+.description-box {
+  max-width: 600px; /* Limita el ancho para que no se expanda demasiado */
+  padding: 20px; /* Añade espacio interno */
+  background-color: #f8f9fa; /* Fondo claro */
+  border: 1px solid #dee2e6; /* Borde sutil */
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+.description-box p {
+  margin: 0; /* Elimina el margen por defecto del párrafo */
+  color: #495057; /* Texto en gris oscuro */
+}
+
 /*# sourceMappingURL=adminlte.css.map */

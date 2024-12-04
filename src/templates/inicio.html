@@ -1,13 +1,39 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<p>
-    Money Exchange es un sistema web diseñado para facilitar el intercambio de
-    dinero entre usuarios registrados. A través de esta plataforma, los usuarios
-    pueden visualizar su saldo, realizar transferencias a otros usuarios,
-    mantener un historial de movimientos y marcar usuarios frecuentes para
-    agilizar futuras transacciones. Además, los administradores tienen acceso a
-    herramientas de gestión para la administración de usuarios y motivos de
-    transferencia.
-</p>
+
+<div class="h-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="description-box text-center mb-4">
+        <p class="lead">
+            Money Exchange Between User$ es un sistema web diseñado para facilitar el intercambio de
+            dinero entre usuarios registrados. A través de esta plataforma, los usuarios
+            pueden visualizar su saldo, realizar transferencias a otros usuarios,
+            mantener un historial de movimientos y marcar usuarios frecuentes para
+            agilizar futuras transacciones. Además, los administradores tienen acceso a
+            herramientas de gestión para la administración de usuarios y motivos de
+            transferencia.
+        </p>
+        {% if not user.is_authenticated %}
+            <br>
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <div class="login-box">
+                    
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
+                                        <a href="{% url 'usuarios:nuevo' %}" class="btn btn-success">Registrarse</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>    
+
 {% endblock content %}
