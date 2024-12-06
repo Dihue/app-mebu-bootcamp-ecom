@@ -15,8 +15,8 @@
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     {% if user.is_authenticated %}
-                        {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" class="user-image rounded-circle shadow" alt="User Image">
+                        {% if user.foto_perfil %}
+                            <img src="{{ user.foto_perfil.url }}" class="user-image rounded-circle shadow" alt="User Image">
                         {% else %}
                             <img src="{% static 'assets/img/user.png' %}" class="user-image rounded-circle shadow" alt="User Image">
                         {% endif %}
@@ -27,8 +27,8 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <li class="user-header text-bg-primary">
-                        {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" class="rounded-circle shadow" alt="User Image">
+                        {% if user.foto_perfil %}
+                            <img src="{{ user.foto_perfil.url }}" class="rounded-circle shadow" alt="User Image">
                         {% else %}
                             <img src="{% static 'assets/img/user.png' %}" class="rounded-circle shadow" alt="User Image">
                         {% endif %}
