@@ -16,14 +16,14 @@
                 {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{% url 'usuarios:nuevo' %}" class="nav-link">
-                            <i class="nav-icon bi bi-palette"></i>
+                            <i class="nav-icon bi bi-person-vcard-fill"></i>
                             <p>Registrarse</p>
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-box-seam-fill"></i>
+                            <i class="nav-icon bi bi-person-fill"></i>
                             <p>
                                 Usuario
                                 <i class="nav-arrow bi bi-chevron-right"></i>
@@ -33,14 +33,14 @@
                             
                             <li class="nav-item">
                                 <a href="{% url 'usuarios:detalle' user.id %}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
+                                    <i class="nav-icon bi bi-person-fill-gear"></i>
                                     <p>Detalles</p>
                                 </a>
                             </li>
                             {% if user.is_superuser %}
                                 <li class="nav-item">
                                     <a href="{% url 'usuarios:lista' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
+                                        <i class="nav-icon bi bi-people-fill"></i>
                                         <p>Lista</p>
                                     </a>
                                 </li>
@@ -50,7 +50,7 @@
                 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-ui-checks-grid"></i>
+                        <i class="nav-icon bi bi-wallet2"></i>
                         <p>
                             Cuenta
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -67,14 +67,14 @@
                         {% endif %}
                         <li class="nav-item">
                             <a href="{% url 'cuentas:ingresar_dinero' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
+                                <i class="nav-icon bi bi-cash-stack"></i>
                                 <p>Ingresar dinero</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{% url 'cuentas:detalle' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
+                                <i class="nav-icon bi bi-card-checklist"></i>
                                 <p>Detalle</p>
                             </a>
                         </li>
@@ -83,7 +83,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-download"></i>
+                        <i class="nav-icon bi bi-bank"></i>
                         <p>
                             Transferencia
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -92,13 +92,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{% url 'transaccion:nueva' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
+                                <i class="nav-icon bi bi-arrow-left-right"></i>
                                 <p>Nueva</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'transaccion:lista' %}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
+                                <i class="nav-icon bi bi-card-list"></i>
                                 <p>Lista</p>
                             </a>
                         </li>
@@ -107,7 +107,7 @@
                     {% if user.is_superuser %}
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-download"></i>
+                                <i class="nav-icon bi bi-clipboard"></i>
                                 <p>
                                     Motivo
                                     <i class="nav-arrow bi bi-chevron-right"></i>
@@ -116,13 +116,13 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{% url 'motivo:nuevo' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
+                                        <i class="nav-icon bi bi-clipboard-plus"></i>
                                         <p>Nuevo</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{% url 'inicio' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
+                                        <i class="nav-icon bi bi-clipboard-check"></i>
                                         <p>Lista</p>
                                     </a>
                                 </li>

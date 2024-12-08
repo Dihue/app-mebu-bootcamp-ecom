@@ -15389,4 +15389,51 @@ html.maximized-card {
   color: #495057; /* Texto en gris oscuro */
 }
 
+/* Estilo general para el contenido de la tarjeta */
+.card-body p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0.5rem 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Estilo para los títulos */
+.card-body p strong {
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* Estilo de los botones */
+.card-footer .btn {
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-footer .btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Espaciado general entre botones */
+.card-footer {
+  margin-top: 10px;
+}
+
+.card-body p {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0.5rem 0;
+  color: #333;
+  line-height: 1.8;
+}
+
+.card-body p strong {
+  font-size: 22px;
+  font-weight: 600;
+  color: #007bff;
+}
 /*# sourceMappingURL=adminlte.css.map */

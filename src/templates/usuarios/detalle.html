@@ -1,12 +1,12 @@
 {% extends "base/base.html" %}
 
 {% block title_block %}
-        Nueva Transacción
+        Detalles del Usario
 {% endblock title_block %}
 
 {% block content %}
 <div class="app-content d-flex justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="card card-primary card-outline mb-4">
 
             <div class="card-body">
@@ -17,16 +17,9 @@
                 <p><strong>DNI:</strong> {{ usuario.dni }}</p>
             </div>
 
-            <div class="card-footer d-flex ">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'cuentas:detalle' %}" class="btn btn-success" role="button">Cuenta</a>
-                        <a href="{% url 'usuarios:editar' %}" class="btn btn-danger" role="button">Editar</a>
-                        <a href="{% url 'inicio' %}" class="btn btn-primary" role="button">Volver</a>
-                        <a href="{% url 'transaccion:lista' %}" class="btn btn-primary" role="button">Transacciones</a>
-                        <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-warning" role="button">Cuentas Frecuentes</a>
-                    </div>
-                </div>
+            <div class="card-footer d-flex justify-content-end">
+                <a href="{% url 'usuarios:editar' %}" class="btn btn-danger">Editar</a>
+                <a href="{% url 'inicio' %}" class="btn btn-primary">Volver</a>
             </div>
         </div>
     </div>
