@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.http import JsonResponse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse, reverse_lazy
 
-from .forms import FormUsuario
+from .forms import FormUsuario, UsuarioFilterForm
 from .models import Usuario
 
 class Nuevo(CreateView):
@@ -37,13 +39,34 @@ class Lista(ListView):
     template_name = 'usuarios/lista.html'
     model = Usuario
     context_object_name = 'usuario'
-    paginate_by = 3
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('q', '')  # 'q' es el nombre del campo del formulario
+        if search_query:
+            # Filtrar por nombre o apellido
+            queryset = queryset.filter(
+                Q(first_name__icontains=search_query) |
+                Q(last_name__icontains=search_query)
+            )
+        return queryset
     
     def get_context_data(self, **kwargs):
         ctx = super(Lista, self).get_context_data(**kwargs)
         ctx["titulo"] = "Lista de Usuarios"
+        ctx["subtitulo"] = "Lista de Usuarios"
+        ctx['formulario_buscador'] = UsuarioFilterForm(self.request.GET or None)
         return ctx
 
+
+def buscar_usuarios(request):
+    query = request.GET.get('q', '')
+    resultados = Usuario.objects.filter(
+        Q(first_name__icontains=query) |
+        Q(last_name__icontains=query)
+    ).values('id', 'first_name', 'last_name')  # Devuelve solo los campos necesarios
+    return JsonResponse(list(resultados), safe=False)
 
 class UsuarioUpdate(LoginRequiredMixin, UpdateView):
     model = Usuario

@@ -35,7 +35,8 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 - :warning: Consulta del historial de movimientos, incluyendo ingresos y transferencias realizadas y recibidas.
 
 ## **Usuarios Administradores**
-- :x: Visualización de la lista completa de usuarios.
+- :heavy_check_mark: Visualización de la lista completa de usuarios.
+- :heavy_check_mark: Buscador por nombre o apellido en la lista de usuarios.
 - :x: Activación o desactivación de cuentas de usuarios.
 - :x: Edición de información de usuarios.
 - :x: Revisión de detalles de cuentas y movimientos de cada usuario.

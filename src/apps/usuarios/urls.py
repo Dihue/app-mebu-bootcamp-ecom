@@ -10,4 +10,6 @@ urlpatterns = [
     path('lista/', views.Lista.as_view(), name='lista'),
     path('usuario/<int:id>/', views.UsuarioDetalles.as_view(), name='detalle'),
     path('usuario/editar/', views.UsuarioUpdate.as_view(), name='editar'),
+
+    path('buscar/', views.buscar_usuarios, name='buscar_usuarios'),
 ]
