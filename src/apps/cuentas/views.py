@@ -37,7 +37,7 @@ class CuentaDetalles(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super(CuentaDetalles, self).get_context_data(**kwargs)
-        ctx["titulo"] = "Detalles de la Cuenta"
+        ctx["titulo"] = "Cuenta"
         ctx["subtitulo"] = "Detalles"
         return ctx
 
@@ -59,6 +59,12 @@ class IngresoDineroView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('cuentas:detalle')
+    
+    def get_context_data(self, **kwargs):
+        ctx = super(IngresoDineroView, self).get_context_data(**kwargs)
+        ctx["titulo"] = "Cuenta"
+        ctx["subtitulo"] = "Ingresar Dinero"
+        return ctx
     
 
 class AgregarCuentaFrecuente(LoginRequiredMixin, CreateView):
