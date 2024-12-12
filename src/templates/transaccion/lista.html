@@ -1,40 +1,71 @@
 {% extends 'base/base.html' %}
 
-{% block content %}
-<h1>Lista de Transacciones</h1>
+{% block title_block %}
+        Lista de Transferencias
+{% endblock title_block %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Emisor</th>
-            <th>Receptor</th>
-            <th>Monto</th>
-            <th>Motivo</th>
-            <th>Fecha</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for transaccion in transacciones %}
-        <tr>
-            <td>{{ transaccion.id }}</td>
-            <td>{{ transaccion.emisor.usuario.username }}</td>
-            <td>{{ transaccion.receptor.usuario.username }}</td>
-            <td>$ {{ transaccion.monto }}</td>
-            <td>{{ transaccion.motivo.descripcion }}</td>
-            <td>{{ transaccion.fecha }}</td>
-            <td>
-                <a href="{% url 'transaccion:comprobante' transaccion.id %}" class="btn btn-info">
-                    Ver Comprobante
-                </a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="7">No hay transacciones disponibles.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block css_extras %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock css_extras %}
+
+{% block content %}
+
+<div class="app-content d-flex justify-content-center">
+	<div class="col-md-10">
+		<div class="card card-primary card-outline mb-4">
+
+            <!-- Buscador -->
+			<div class="card-header">
+				<h4 class="card-title">Buscador</h4>
+				<div class="card-tools">
+					<form id="buscador-form" method="get" class="form-inline d-flex align-items-center">
+						{{ formulario_buscador.q }}
+						<button type="button" id="buscar-btn" class="btn btn-primary ml-2 bi bi-search"></button>
+					</form>
+				</div>
+			</div>
+
+            <!-- Contenido principal -->
+			<div class="card-body">
+				<table class="table table-bordered table-hover" id="resultado-tabla">
+                    <thead>
+                        <tr>
+                            <th>Emisor</th>
+                            <th>Receptor</th>
+                            <th>Monto</th>
+                            <th>Motivo</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for transaccion in transacciones %}
+                        <tr>
+                            <td>{{ transaccion.emisor.usuario.username }}</td>
+                            <td>{{ transaccion.receptor.usuario.username }}</td>
+                            <td>$ {{ transaccion.monto }}</td>
+                            <td>{{ transaccion.motivo.descripcion }}</td>
+                            <td>{{ transaccion.fecha }}</td>
+                            <td>
+                                <a href="{% url 'transaccion:comprobante' transaccion.id %}" class="btn btn-success">
+                                    Comprobante
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">No hay transacciones disponibles.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Paginación -->
+			<div class="d-flex justify-content-center">
+				{% include "includes/paginacion.html" %}
+			</div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,8 +1,12 @@
 {% for field in form %}
 
         <div class="mb-3">
-            <label class="form-label">{{ field.label }}</label>
-            {{ field }}
+            <p>
+                <strong>
+                    <label class="form-label">{{ field.label }}</label>
+                </strong>
+                {{ field }}
+            </p>
         </div>
 
 {% endfor %}

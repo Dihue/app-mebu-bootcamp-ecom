@@ -9,52 +9,51 @@
 {% endblock css_extras %}
 
 {% block content %}
-    <div class="app-content d-flex justify-content-center">
-        <div class="col-md-6">
-            <div class="card card-primary card-outline mb-4">
+<div class="app-content d-flex justify-content-center align-items-center" style="height: 100h;">
+    <div class="col-md-6">
+        <div class="card card-primary card-outline shadow">
+            <div class="card-header">
+                <div class="card-title">Detalles de la transferencia</div>
+            </div>
 
-                <div class="card-header">
-                    <div class="card-title">Detalles de la transacción</div>
+            <form method="post">{% csrf_token %}
+                    
+                <div class="card-body">
+                    {% include 'includes/forms_errors.html' %}
+                    {% include 'includes/forms.html' %}
+
+                    <p>
+                        <strong>
+                            <label for="cuentas_frecuentes">Cuentas frecuentes: </label>
+                            <select id="cuentas_frecuentes" onchange="document.getElementById('id_receptor_username').value = this.value;">
+                                <option value="">------------</option>
+                                {% for cuenta in cuentas_frecuentes %}
+                                    <option value="{{ cuenta.cuenta.usuario.username }}">{{ cuenta.alias|default:cuenta.cuenta.usuario.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </strong>
+                    </p>
                 </div>
-
-                <form method="post">{% csrf_token %}
-                    
-                    <div class="card-body">
-                        {% include 'includes/forms_errors.html' %}
-
-                        {% include 'includes/forms.html' %}
-
-                        <label for="cuentas_frecuentes">Cuentas frecuentes</label>
-
-                        <select id="cuentas_frecuentes" onchange="document.getElementById('id_receptor_username').value = this.value;">
-                            <option value="">--- Seleccionar ---</option>
-                            {% for cuenta in cuentas_frecuentes %}
-                                <option value="{{ cuenta.cuenta.usuario.username }}">{{ cuenta.alias|default:cuenta.cuenta.usuario.username }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+            
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
                 
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                    
-                
-                    <div class="card-footer d-flex ">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-success">Transferir</button>
-                    
-                                <a href="{% url 'inicio' %}" class="btn btn-danger" role="button">Salir</a>
-                                <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-primary" role="button">Cuentas frecuente</a>
-                            </div>
+            
+                <div class="card-footer d-flex ">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success">Transferir</button>
+                            <a href="{% url 'cuentas:lista_cuentas_frecuentes' %}" class="btn btn-primary" role="button">Cuentas frecuente</a>
+                            <a href="{% url 'inicio' %}" class="btn btn-secondary" role="button">Inicio</a>
                         </div>
                     </div>
-                    
-                </form>
-
-            </div>
+                </div>
+                
+            </form>
         </div>
     </div>
+</div>
 {% endblock content %}

@@ -56,8 +56,8 @@ class NuevaTransaccion(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["titulo"] = "Nueva Transacción"
-        ctx["subtitulo"] = "Transacción"
+        ctx["titulo"] = "Nueva Transferencia"
+        ctx["subtitulo"] = "Transferencia"
         # Pasar las cuentas frecuentes al contexto
         ctx["cuentas_frecuentes"] = CuentaFrecuente.objects.filter(usuario=self.request.user)
         return ctx
@@ -84,9 +84,16 @@ class ListaTransacciones(LoginRequiredMixin, ListView):
     model = Transaccion
     template_name = 'transaccion/lista.html'
     context_object_name = 'transacciones'
+    paginate_by = 5
 
     def get_queryset(self):
         # Filtrar transacciones para mostrar solo las relacionadas con el usuario actual
         return Transaccion.objects.filter(
             Q(emisor__usuario=self.request.user) | Q(receptor__usuario=self.request.user)
         )
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["titulo"] = "Lista de Transferencia"
+        ctx["subtitulo"] = "Transferencia"
+        return ctx
