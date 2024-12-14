@@ -7,6 +7,9 @@ from django.urls import reverse_lazy, reverse
 from .forms import FormCuenta, IngresoDineroForm, CuentaFrecuenteForm
 from .models import Cuenta, CuentaFrecuente
 
+from apps.transacciones.models import Transaccion
+from apps.motivos.models import Motivo
+
 class Nuevo(LoginRequiredMixin, CreateView):
     template_name = 'cuentas/nuevo.html'
     model = Cuenta
@@ -52,6 +55,17 @@ class IngresoDineroView(LoginRequiredMixin, UpdateView):
         cantidad = form.cleaned_data['cantidad']
         cuenta.saldo += cantidad
         cuenta.save()
+
+        # Registrar el ingreso como una transacción
+        motivo = Motivo.objects.get(descripcion="Ingreso de dinero")
+
+        Transaccion.objects.create(
+            tipo='ingreso',
+            receptor=cuenta,
+            monto=cantidad,
+            motivo=motivo
+        )
+
         return super().form_valid(form)
 
     def get_object(self, queryset=None):
@@ -61,7 +75,7 @@ class IngresoDineroView(LoginRequiredMixin, UpdateView):
         return reverse('cuentas:detalle')
     
     def get_context_data(self, **kwargs):
-        ctx = super(IngresoDineroView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx["titulo"] = "Cuenta"
         ctx["subtitulo"] = "Ingresar Dinero"
         return ctx

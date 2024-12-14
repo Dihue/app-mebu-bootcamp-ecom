@@ -87,13 +87,20 @@ class ListaTransacciones(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        # Filtrar transacciones para mostrar solo las relacionadas con el usuario actual
-        return Transaccion.objects.filter(
-            Q(emisor__usuario=self.request.user) | Q(receptor__usuario=self.request.user)
+        usuario = self.request.user
+        tipo = self.request.GET.get('tipo')  # Obtener filtro de tipo desde la URL
+
+        queryset = Transaccion.objects.filter(
+            Q(emisor__usuario=usuario) | Q(receptor__usuario=usuario)
         )
+
+        if tipo:
+            queryset = queryset.filter(tipo=tipo)
+
+        return queryset.order_by('-fecha')
     
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["titulo"] = "Lista de Transferencia"
-        ctx["subtitulo"] = "Transferencia"
+        ctx["titulo"] = "Historial de Movimientos"
+        ctx["subtitulo"] = "Todos los movimientos de tu cuenta"
         return ctx

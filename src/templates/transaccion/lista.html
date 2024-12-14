@@ -13,17 +13,21 @@
 <div class="app-content d-flex justify-content-center">
 	<div class="col-md-10">
 		<div class="card card-primary card-outline mb-4">
-
-            <!-- Buscador -->
-			<div class="card-header">
-				<h4 class="card-title">Buscador</h4>
-				<div class="card-tools">
-					<form id="buscador-form" method="get" class="form-inline d-flex align-items-center">
-						{{ formulario_buscador.q }}
-						<button type="button" id="buscar-btn" class="btn btn-primary ml-2 bi bi-search"></button>
-					</form>
-				</div>
-			</div>
+            <!-- Filtro -->
+            <div class="card-header">
+                <div class="card-tools">
+                    <form method="get" class="form-inline d-flex align-items-center">
+                        <select name="tipo" class="form-control">
+                            <option value="">Todos</option>
+                            <option value="ingreso">Ingresos</option>
+                            <option value="transferencia">Transferencias</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary d-flex align-items-center me-2">
+                            <i class="bi bi-filter me-2"></i> Filtrar
+                        </button>                        
+                    </form>
+                </div>
+            </div>
 
             <!-- Contenido principal -->
 			<div class="card-body">
@@ -38,17 +42,31 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-
+                
                     <tbody>
                         {% for transaccion in transacciones %}
                         <tr>
-                            <td>{{ transaccion.emisor.usuario.username }}</td>
-                            <td>{{ transaccion.receptor.usuario.username }}</td>
-                            <td>$ {{ transaccion.monto }}</td>
-                            <td>{{ transaccion.motivo.descripcion }}</td>
+                            <td>{{ transaccion.emisor.usuario.username|default:'-'  }}</td>
+                            <td>{{ transaccion.receptor.usuario.username|default:'-'  }}</td>
+                            <td>
+                                {% if transaccion.tipo == 'ingreso' %}
+                                    <span class="badge bg-primary">+ ${{ transaccion.monto }}</span>
+                                {% elif transaccion.emisor.usuario == request.user %}
+                                    <span class="badge bg-danger">- ${{ transaccion.monto }}</span>
+                                {% else %}
+                                    <span class="badge bg-success">+ ${{ transaccion.monto }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if transaccion.motivo %}
+                                    {{ transaccion.motivo.descripcion }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>                            
                             <td>{{ transaccion.fecha }}</td>
                             <td>
-                                <a href="{% url 'transaccion:comprobante' transaccion.id %}" class="btn btn-success">
+                                <a href="{% url 'transaccion:comprobante' transaccion.id %}" class="btn btn-secondary">
                                     Comprobante
                                 </a>
                             </td>
