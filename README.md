@@ -32,7 +32,7 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 - :heavy_check_mark: Transferencias de dinero a otros usuarios registrados, con selección de motivo desde una lista predefinida.
 - :heavy_check_mark: Visualización de comprobantes de transferencias desde la interfaz web.
 - :heavy_check_mark: Marcar usuarios como favoritos para agilizar futuras transferencias.
-- :warning: Consulta del historial de movimientos, incluyendo ingresos y transferencias realizadas y recibidas.
+- :heavy_check_mark: Consulta del historial de movimientos, incluyendo ingresos y transferencias realizadas y recibidas.
 
 ## **Usuarios Administradores**
 - :heavy_check_mark: Visualización de la lista completa de usuarios.
