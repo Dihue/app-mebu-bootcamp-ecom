@@ -37,7 +37,7 @@
                                     <p>Detalles</p>
                                 </a>
                             </li>
-                            {% if user.is_superuser %}
+                            {% if user.is_authenticated and es_admin %}
                                 <li class="nav-item">
                                     <a href="{% url 'usuarios:lista' %}" class="nav-link">
                                         <i class="nav-icon bi bi-people-fill"></i>
@@ -104,7 +104,7 @@
                         </li>
                     </ul>
                 </li>
-                    {% if user.is_superuser %}
+                    {% if user.is_authenticated and es_admin %}
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-clipboard"></i>
@@ -129,6 +129,22 @@
                             </ul>
                         </li>
                     {% endif %}
+                {% endif %}
+                
+                {% if user.is_authenticated and es_admin %}
+                    <li class="nav-header">ADMINISTRACION</li>
+                    <li class="nav-item">
+                        <a href="{% url 'usuarios:admin_user_list' %}" class="nav-link">
+                            <i class="nav-icon bi bi-question-circle-fill"></i>
+                            <p>Admin</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./docs/license.html" class="nav-link">
+                            <i class="nav-icon bi bi-patch-check-fill"></i>
+                            <p>License</p>
+                        </a>
+                    </li>
                 {% endif %}
 
                 <li class="nav-header">DOCUMENTACION</li>

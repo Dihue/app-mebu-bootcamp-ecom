@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.generic.detail import DetailView
@@ -8,6 +9,7 @@ from django.urls import reverse, reverse_lazy
 
 from .forms import FormUsuario, UsuarioFilterForm
 from .models import Usuario
+
 
 class Nuevo(CreateView):
     template_name = 'usuarios/nuevo.html'
@@ -68,6 +70,7 @@ def buscar_usuarios(request):
     ).values('id', 'first_name', 'last_name')  # Devuelve solo los campos necesarios
     return JsonResponse(list(resultados), safe=False)
 
+
 class UsuarioUpdate(LoginRequiredMixin, UpdateView):
     model = Usuario
     fields = ['first_name', 'last_name', 'dni', 'email', 'foto_perfil']
@@ -88,3 +91,34 @@ class UsuarioUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return super().form_valid(form)
+
+
+User = get_user_model()
+
+class AdminUserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Usuario
+    template_name = 'usuarios/admin_user_list.html'
+    context_object_name = 'usuarios'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('q')
+        if search_query:
+            queryset = queryset.filter(
+                Q(first_name__icontains=search_query) | 
+                Q(last_name__icontains=search_query)
+            )
+        return queryset
+
+    def test_func(self):
+        user = self.request.user
+        print(f"Superusuario: {user.is_superuser}, Grupo Administradores: {user.groups.filter(name='Administradores').exists()}")
+        return user.is_superuser or user.groups.filter(name='Administradores').exists()
+
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        user = self.request.user
+        ctx['es_admin'] = user.is_superuser or user.groups.filter(name='Administradores').exists()
+        return ctx
