@@ -37,7 +37,7 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 ## **Usuarios Administradores**
 - :heavy_check_mark: Visualización de la lista completa de usuarios.
 - :heavy_check_mark: Buscador por nombre o apellido en la lista de usuarios.
-- :x: Activación o desactivación de cuentas de usuarios.
-- :x: Edición de información de usuarios.
-- :x: Revisión de detalles de cuentas y movimientos de cada usuario.
+- :heavy_check_mark: Activación o desactivación de cuentas de usuarios.
+- :heavy_check_mark: Edición de información de usuarios.
+- :heavy_check_mark: Revisión de detalles de cuentas y movimientos de cada usuario.
 - :x: Gestión de motivos de transferencia (CRUD).
