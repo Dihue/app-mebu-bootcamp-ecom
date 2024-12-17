@@ -13,4 +13,7 @@ urlpatterns = [
 
     path('buscar/', views.buscar_usuarios, name='buscar_usuarios'),
     path('admin/usuarios/', views.AdminUserListView.as_view(), name='admin_user_list'),
+    path('admin/<int:user_id>/toggle-active/', views.toggle_user_active, name='toggle_user_active'),
+    path('admin/<int:pk>/editar/', views.EditarUsuarioView.as_view(), name='editar_usuario'),
+    path('admin/<int:pk>/detalle/', views.DetalleUsuarioView.as_view(), name='detalle_usuario'),
 ]

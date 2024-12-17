@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block title_block %}
+        Editar Usuario
+{% endblock title_block %}
+
+{% block css_extras %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock css_extras %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4>Editar Usuario</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

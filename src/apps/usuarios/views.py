@@ -1,13 +1,16 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
-from django.urls import reverse, reverse_lazy
 
-from .forms import FormUsuario, UsuarioFilterForm
+from .forms import FormUsuario, UsuarioFilterForm, EditarUsuarioForm
 from .models import Usuario
 
 
@@ -89,7 +92,6 @@ class UsuarioUpdate(LoginRequiredMixin, UpdateView):
         return reverse('usuarios:detalle', kwargs={'id': self.request.user.pk})
 
     def form_valid(self, form):
-        print(form.cleaned_data)
         return super().form_valid(form)
 
 
@@ -99,7 +101,7 @@ class AdminUserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Usuario
     template_name = 'usuarios/admin_user_list.html'
     context_object_name = 'usuarios'
-    paginate_by = 10
+    paginate_by = 3
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -113,7 +115,6 @@ class AdminUserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def test_func(self):
         user = self.request.user
-        print(f"Superusuario: {user.is_superuser}, Grupo Administradores: {user.groups.filter(name='Administradores').exists()}")
         return user.is_superuser or user.groups.filter(name='Administradores').exists()
 
 
@@ -121,4 +122,56 @@ class AdminUserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         ctx = super().get_context_data(**kwargs)
         user = self.request.user
         ctx['es_admin'] = user.is_superuser or user.groups.filter(name='Administradores').exists()
+        ctx['formulario_buscador'] = UsuarioFilterForm(self.request.GET or None)
+        ctx["titulo"] = "Administración de Usuarios"
+        ctx["subtitulo"] = "Administración"
         return ctx
+
+
+@user_passes_test(lambda u: u.is_superuser or u.groups.filter(name='Administradores').exists())
+def toggle_user_active(request, user_id):
+    usuario = get_object_or_404(Usuario, id=user_id)
+    usuario.is_active = not usuario.is_active
+    usuario.save()
+    estado = "activado" if usuario.is_active else "desactivado"
+    messages.success(request, f"El usuario {usuario} ha sido {estado}.")
+    return redirect('usuarios:admin_user_list')
+
+
+class EditarUsuarioView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Usuario
+    form_class = EditarUsuarioForm
+    template_name = 'usuarios/admin_user_edit.html'
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name='Administradores').exists()
+
+    def get_success_url(self):
+        return reverse('usuarios:admin_user_list')
+
+
+class DetalleUsuarioView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Usuario
+    template_name = 'usuarios/admin_user_detail.html'
+    context_object_name = 'usuario'
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name='Administradores').exists()
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        cuenta = getattr(self.object, 'cuenta', None)  # Obtener la cuenta del usuario
+        ctx['cuenta'] = cuenta
+        ctx["titulo"] = "Detalles de la Cuenta"
+        ctx["subtitulo"] = "Detalles"
+
+        # Obtener todas las transacciones relacionadas (emitidas y recibidas)
+        if cuenta:
+            transacciones_emitidas = cuenta.transacciones_emitidas.all()
+            transacciones_recibidas = cuenta.transacciones_recibidas.all()
+            ctx['transacciones'] = transacciones_emitidas.union(transacciones_recibidas).order_by('-fecha')
+        else:
+            ctx['transacciones'] = []
+
+        return ctx
+

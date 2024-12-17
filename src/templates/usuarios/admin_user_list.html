@@ -1,50 +1,89 @@
 {% extends "base/base.html" %}
 
+{% block title_block %}
+        Administración de Usuarios
+{% endblock title_block %}
+
+{% block css_extras %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock css_extras %}
+
 {% block content %}
-<h2>Lista de Usuarios</h2>
+<div class="app-content d-flex justify-content-center">
+	<div class="col-md-10">
+		<div class="card card-primary card-outline mb-4">
 
-<form method="get" class="mb-3">
-    <input type="text" name="q" placeholder="Buscar por nombre o apellido" class="form-control" value="{{ request.GET.q }}">
-</form>
+            <div class="card-header">
+				<h4 class="card-title">Buscador</h4>
+				<div class="card-tools">
+					<form id="buscador-form" method="get" class="form-inline d-flex align-items-center">
+						{{ formulario_buscador.q }}
+						<button type="button" id="buscar-btn" class="btn btn-primary ml-2 bi bi-search"></button>
+					</form>
+				</div>
+			</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for usuario in usuarios %}
-        <tr>
-            <td>{{ usuario.first_name }}</td>
-            <td>{{ usuario.last_name }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>
-                {% if usuario.is_active %}
-                <span class="badge bg-success">Activo</span>
-                {% else %}
-                <span class="badge bg-danger">Inactivo</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            <!-- Contenido principal -->
+            <div class="card-body">
+                <table class="table table-bordered table-hover" id="resultado-tabla">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Admin</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td class="text-center">{{ usuario.id }}</td>
+                                <td>{{ usuario.first_name|default:'-' }}</td>
+                                <td >{{ usuario.last_name|default:'-' }}</td>
+                                <td >{{ usuario.dni|default:'-' }}</td>
+                                <td>{{ usuario.email }}</td>
+                                <td>
+                                    {% if usuario.is_active %}
+                                    <span class="badge bg-success">Activo</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Inactivo</span>
+                                    {% endif %}
+                                </td>
+                                <td >{{ usuario.es_admin|default:'-' }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'usuarios:toggle_user_active' usuario.id %}" 
+                                        class="btn btn-sm {% if usuario.is_active %}btn-danger{% else %}btn-success{% endif %}" 
+                                        title="{% if usuario.is_active %}Desactivar{% else %}Activar{% endif %}">
+                                        <i class="bi {% if usuario.is_active %}bi-person-x{% else %}bi-person-check{% endif %}"></i>
+                                    </a>
+                                    <a href="{% url 'usuarios:editar_usuario' usuario.id %}" class="btn btn-sm btn-success" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    
+                                    <a href="{% url 'usuarios:detalle_usuario' usuario.id %}" class="btn btn-sm btn-primary" title="Detalle"><i class="bi bi-info-circle"></i></a>
+                                    
+                                    <a href="#" class="btn btn-sm btn-danger" title="Eliminar"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No se encontraron resultados</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-<div class="pagination">
-    {% if usuarios.has_previous %}
-        <a href="?page=1">Primera</a>
-        <a href="?page={{ usuarios.previous_page_number }}">Anterior</a>
-    {% endif %}
+            <!-- Paginación -->
+            <div class="d-flex justify-content-center">
+                {% include "includes/paginacion.html" %}
+            </div>
 
-    Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}
-
-    {% if usuarios.has_next %}
-        <a href="?page={{ usuarios.next_page_number }}">Siguiente</a>
-        <a href="?page={{ usuarios.paginator.num_pages }}">Última</a>
-    {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

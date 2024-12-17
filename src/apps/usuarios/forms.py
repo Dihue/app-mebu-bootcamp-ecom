@@ -27,3 +27,12 @@ class UsuarioFilterForm(forms.Form):
             'placeholder': 'Por nombre o apellido',
         })
     )
+
+
+class EditarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['first_name', 'last_name', 'email', 'dni', 'is_active']
+        widgets = {
+            'is_active': forms.CheckboxInput(),
+        }
