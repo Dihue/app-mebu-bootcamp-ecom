@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -169,9 +170,20 @@ class DetalleUsuarioView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         if cuenta:
             transacciones_emitidas = cuenta.transacciones_emitidas.all()
             transacciones_recibidas = cuenta.transacciones_recibidas.all()
-            ctx['transacciones'] = transacciones_emitidas.union(transacciones_recibidas).order_by('-fecha')
+
+            transacciones = transacciones_emitidas.union(transacciones_recibidas).order_by('-fecha')
+
+            # Pagina las transacciones
+            paginator = Paginator(transacciones, 5)  # Cambia '5' por el número de elementos por página
+            page_number = self.request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+            ctx['transacciones'] = page_obj  # Lista paginada
+            ctx['is_paginated'] = page_obj.has_other_pages()  # Indica si hay más páginas
+            ctx['paginator'] = paginator  # Objeto paginador
+            ctx['page_obj'] = page_obj  # Página actual
         else:
             ctx['transacciones'] = []
+            ctx['is_paginated'] = False
 
         return ctx
-

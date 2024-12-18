@@ -10,49 +10,57 @@
 {% endblock css_extras %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h4>Usuario: {{ usuario.get_full_name }}</h4>
-    </div>
-    <div class="card-body">
-        <h5>Información de la Cuenta</h5>
-        <p>Saldo: $ {{ cuenta.saldo }}</p>
+<div class="app-content d-flex justify-content-center">
+	<div class="col-md-10">
+		<div class="card card-primary card-outline mb-4">
+            
+            <div class="card-header">
+                <h5>Usuario: <strong>{{ usuario.get_full_name }}</strong></h5>
+                <h5>Saldo: <strong>{{ cuenta.saldo|format_currency }}</strong></h5>
+            </div>
 
-        <h5>Transacciones</h5>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Monto</th>
-                    <th>Motivo</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaccion in transacciones %}
-                <tr>
-                    <td>{{ transaccion.id }}</td>
-                    
-
-                    <td>
-                        {% if transaccion.tipo == "ingreso" %}
-                            <span class="badge bg-success">Ingreso</span>
-                        {% else %}
-                            <span class="badge bg-primary">Transferencia</span>
-                        {% endif %}
-                    </td>                    
-                    <td>{{ transaccion.monto|format_currency }}</td>
-                    <td>{{ transaccion.motivo }}</td>
-                    <td>{{ transaccion.fecha|date:"d M Y, H:i" }}</td>
-                </tr>
-                {% empty %}
-                <tr class="table-warning">
-                    <td colspan="6" class="text-center">No hay transacciones relacionadas.</td>
-                </tr>                
-                {% endfor %}
-            </tbody>
-        </table>
+            <!-- Contenido principal -->
+            <div class="card-body">
+                <h5>Transacciones</h5>
+                <table class="table table-bordered table-hover" id="resultado-tabla">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                            <th>Motivo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaccion in transacciones %}
+                        <tr>
+                            <td>{{ transaccion.id }}</td>
+                            <td>
+                                {% if transaccion.tipo == "ingreso" %}
+                                    <span class="badge bg-success">Ingreso</span>
+                                {% else %}
+                                    <span class="badge bg-primary">Transferencia</span>
+                                {% endif %}
+                            </td>                    
+                            <td>{{ transaccion.monto|format_currency }}</td>
+                            <td>{{ transaccion.motivo }}</td>
+                            <td>{{ transaccion.fecha|date:"d M Y, H:i" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr class="table-warning">
+                            <td colspan="6" class="text-center">No hay transacciones relacionadas.</td>
+                        </tr>                
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Paginación -->
+            <div class="d-flex justify-content-center">
+                {% include "includes/paginacion.html" %}
+            </div>
+        
+        </div>
     </div>
 </div>
 {% endblock %}
