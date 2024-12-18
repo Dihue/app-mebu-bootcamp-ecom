@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load custom_filters %}
 
 {% block title_block %}
     Detalles de la Cuenta
@@ -12,7 +13,7 @@
                 <h3 class="card-title">Detalles de la Cuenta</h3>
             </div>
             <div class="card-body">
-                <p><strong>Saldo:</strong> {{ cuenta.saldo }}</p>
+                <p><strong>Saldo:</strong> {{ cuenta.saldo|format_currency }}</p>
                 <p>
                     <strong>Estado:</strong>
                     {% if cuenta.estado %}

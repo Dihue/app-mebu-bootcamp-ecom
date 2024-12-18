@@ -11,6 +11,6 @@ def format_currency(value):
         entero, decimal = f"{value:.2f}".split(".")
         # Formatear la parte entera con puntos
         entero_formateado = f"{int(entero):,}".replace(",", ".")
-        return f"${entero_formateado},{decimal}"
+        return f"$ {entero_formateado},{decimal}"
     except (ValueError, TypeError):
         return value  # Devuelve el valor sin formato si no es un número

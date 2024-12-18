@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load custom_filters %}
 
 {% block title_block %}
         Lista de Transferencias
@@ -50,11 +51,11 @@
                             <td>{{ transaccion.receptor.usuario.username|default:'-'  }}</td>
                             <td>
                                 {% if transaccion.tipo == 'ingreso' %}
-                                    <span class="badge bg-primary">+ ${{ transaccion.monto }}</span>
+                                    <span class="badge bg-primary">+ {{ transaccion.monto|format_currency }}</span>
                                 {% elif transaccion.emisor.usuario == request.user %}
-                                    <span class="badge bg-danger">- ${{ transaccion.monto }}</span>
+                                    <span class="badge bg-danger">- {{ transaccion.monto|format_currency }}</span>
                                 {% else %}
-                                    <span class="badge bg-success">+ ${{ transaccion.monto }}</span>
+                                    <span class="badge bg-success">+ {{ transaccion.monto|format_currency }}</span>
                                 {% endif %}
                             </td>
                             <td>
