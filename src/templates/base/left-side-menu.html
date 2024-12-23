@@ -121,11 +121,18 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'inicio' %}" class="nav-link">
+                                    <a href="{% url 'motivo:motivo_create' %}" class="nav-link">
+                                        <i class="nav-icon bi bi-clipboard-check"></i>
+                                        <p>Crear</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'motivo:motivo_list' %}" class="nav-link">
                                         <i class="nav-icon bi bi-clipboard-check"></i>
                                         <p>Lista</p>
                                     </a>
                                 </li>
+                                
                             </ul>
                         </li>
                     {% endif %}

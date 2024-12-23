@@ -40,4 +40,4 @@ En la carpeta **requirements** se encuentra el archivo con las dependecias neces
 - :heavy_check_mark: Activación o desactivación de cuentas de usuarios.
 - :heavy_check_mark: Edición de información de usuarios.
 - :heavy_check_mark: Revisión de detalles de cuentas y movimientos de cada usuario.
-- :x: Gestión de motivos de transferencia (CRUD).
+- :heavy_check_mark: Gestión de motivos de transferencia (CRUD).

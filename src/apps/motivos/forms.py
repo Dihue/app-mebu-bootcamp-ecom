@@ -8,3 +8,11 @@ class FormTransaccion(forms.ModelForm):
         model = Motivo
         fields = ['descripcion']
 
+
+class MotivoForm(forms.ModelForm):
+    class Meta:
+        model = Motivo
+        fields = ['descripcion']
+        widgets = {
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }

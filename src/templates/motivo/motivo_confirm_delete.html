@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% block title_block %}Eliminar Motivo{% endblock title_block %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>¿Está seguro de que desea eliminar este motivo?</h3>
+    <p>{{ object.descripcion }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'motivo:motivo_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock content %}

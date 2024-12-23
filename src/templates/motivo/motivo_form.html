@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% block title_block %}Crear/Editar Motivo{% endblock title_block %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>{% if object %}Editar Motivo{% else %}Crear Motivo{% endif %}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'motivo:motivo_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock content %}
