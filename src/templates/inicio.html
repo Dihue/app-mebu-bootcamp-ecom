@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if not user.is_authenticated %}
 <div class="h-100 d-flex flex-column justify-content-center align-items-center">
     <div class="description-box text-center mb-4">
         <p class="lead">
@@ -13,27 +14,53 @@
             herramientas de gestión para la administración de usuarios y motivos de
             transferencia.
         </p>
-        {% if not user.is_authenticated %}
-            <br>
-            <div class="d-flex align-items-center justify-content-center h-100">
-                <div class="login-box">
-                    
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between">
-                                        <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
-                                        <a href="{% url 'usuarios:nuevo' %}" class="btn btn-success">Registrarse</a>
-                                    </div>
+        <br>
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="login-box">
+                
+                <div class="card">
+                    <div class="card-header text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
+                                    <a href="{% url 'usuarios:nuevo' %}" class="btn btn-success">Registrarse</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
-        {% endif %}
+        </div>
     </div>
-</div>    
+</div>
+{% elif not request.user.cuenta %}
+<div class="h-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="description-box text-center mb-4">
+        <p class="lead">
+            Debes crear tu cuenta para poder acceder a todas las funciones.
+        </p>
+        <br>
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="login-box">
+                
+                <div class="card">
+                    <div class="card-header text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center">
+                                    <a href="{% url 'cuentas:nuevo' %}" class="btn btn-success">Nueva Cuenta</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock content %}

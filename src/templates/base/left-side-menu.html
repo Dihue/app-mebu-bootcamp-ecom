@@ -37,14 +37,7 @@
                                     <p>Detalles</p>
                                 </a>
                             </li>
-                            {% if user.is_authenticated and es_admin %}
-                                <li class="nav-item">
-                                    <a href="{% url 'usuarios:lista' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-people-fill"></i>
-                                        <p>Lista</p>
-                                    </a>
-                                </li>
-                            {% endif %}
+                            
                         </ul>
                     </li>
                 
@@ -104,65 +97,59 @@
                         </li>
                     </ul>
                 </li>
-                    {% if user.is_authenticated and es_admin %}
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-clipboard"></i>
-                                <p>
-                                    Motivo
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{% url 'motivo:nuevo' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-clipboard-plus"></i>
-                                        <p>Nuevo</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'motivo:motivo_create' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-clipboard-check"></i>
-                                        <p>Crear</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'motivo:motivo_list' %}" class="nav-link">
-                                        <i class="nav-icon bi bi-clipboard-check"></i>
-                                        <p>Lista</p>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </li>
-                    {% endif %}
                 {% endif %}
                 
                 {% if user.is_authenticated and es_admin %}
                     <li class="nav-header">ADMINISTRACION</li>
+                    
                     <li class="nav-item">
                         <a href="{% url 'usuarios:admin_user_list' %}" class="nav-link">
-                            <i class="nav-icon bi bi-question-circle-fill"></i>
-                            <p>Admin</p>
+                            <i class="nav-icon bi bi-people-fill"></i>
+                            <p>Lista de Usuarios</p>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a href="./docs/license.html" class="nav-link">
-                            <i class="nav-icon bi bi-patch-check-fill"></i>
-                            <p>License</p>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-clipboard"></i>
+                            <p>
+                                Motivo
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'motivo:nuevo' %}" class="nav-link">
+                                    <i class="nav-icon bi bi-clipboard-plus"></i>
+                                    <p>Nuevo</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'motivo:motivo_create' %}" class="nav-link">
+                                    <i class="nav-icon bi bi-clipboard-check"></i>
+                                    <p>Crear</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'motivo:motivo_list' %}" class="nav-link">
+                                    <i class="nav-icon bi bi-clipboard-check"></i>
+                                    <p>Lista</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
                     </li>
                 {% endif %}
 
                 <li class="nav-header">DOCUMENTACION</li>
                 <li class="nav-item">
-                    <a href="./docs/faq.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-question-circle-fill"></i>
                         <p>FAQ</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./docs/license.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-patch-check-fill"></i>
                         <p>License</p>
                     </a>
